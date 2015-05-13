@@ -1,0 +1,14 @@
+{
+   "version": "1.0",
+   "manifest_version": 2,
+   "name": "Google Image Search Gif Player",
+   "permissions": ["http://google.com/*"],
+   "content_scripts": [
+   {
+       "matches": ["http://www.google.com/search*","https://www.google.com/search*"],
+       "js": [
+           "inject.js"
+       ]
+   }
+   ]
+}
