@@ -4,7 +4,6 @@ var SEARCH_BOX_ID = "gsfi";
 
 // Initial Vars
 var links = document.getElementsByTagName('a')
-var processedGifs = {};
 
 function getGifUrl(link) {
   var href = link.href + "";
@@ -19,15 +18,8 @@ function getGifUrl(link) {
 // extract the relevant image and replace the source of the child image
 function replaceGif(link) {
   var gifUrl = getGifUrl(link);
-  try {
-    var currentSearch = document.getElementsByClassName(SEARCH_BOX_ID)[0].value
-  } catch(e) {
-    var currentSearch = "";
-  }
-  var key = gifUrl + currentSearch
-  if (processedGifs[key] == undefined) {
+  if (link.children[0].src !== gifUrl) {
     link.children[0].src = gifUrl;
-    processedGifs[key] = true;
   }
 }
 
