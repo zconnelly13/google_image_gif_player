@@ -12,7 +12,8 @@ function getGifUrl(link) {
   href = href.substr(start) 
   var end = href.indexOf("&")
   href = href.substr(0,end)
-  return decodeURIComponent(href);
+  // yes, decodeURIComponent should be called twice, I don't know why :(
+  return decodeURIComponent(decodeURIComponent(href));
 }
 
 // extract the relevant image and replace the source of the child image
