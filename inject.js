@@ -4,7 +4,7 @@ var SEARCH_BOX_ID = "gsfi";
 
 // Initial Vars
 var links = document.getElementsByTagName('a')
-var validLinks = []
+var processedGifs = {};
 
 function getGifUrl(link) {
   var href = link.href + "";
@@ -12,13 +12,22 @@ function getGifUrl(link) {
   href = href.substr(start) 
   var end = href.indexOf("&")
   href = href.substr(0,end)
-  return href
+  return decodeURIComponent(href);
 }
 
 // extract the relevant image and replace the source of the child image
 function replaceGif(link) {
   var gifUrl = getGifUrl(link);
-  link.children[0].src = gifUrl;
+  try {
+    var currentSearch = document.getElementsByClassName(SEARCH_BOX_ID)[0].value
+  } catch(e) {
+    var currentSearch = "";
+  }
+  var key = gifUrl + currentSearch
+  if (processedGifs[key] == undefined) {
+    link.children[0].src = gifUrl;
+    processedGifs[key] = true;
+  }
 }
 
 // changes all the gifs on the page
@@ -34,5 +43,5 @@ function main() {
 
 main();
 
-// eventually this should refresh properly
-var searchBar = document.getElementsByClassName(SEARCH_BOX_ID)[0]
+setInterval(main,500);
+setTimeout(main,100);
